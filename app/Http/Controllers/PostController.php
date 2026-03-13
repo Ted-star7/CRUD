@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -41,11 +41,20 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update( $request, Post $post)
-    {
-        //
-    }
+   public function update(Request $request, Post $post)
+{
+    $validated = $request->validate([
+        'title' => 'required|string|max:255',
+        'body' => 'required|string',
+    ]);
 
+    $post->update($validated);
+
+    return response()->json([
+        'message' => 'Post updated successfully',
+        'post' => $post
+    ]);
+}
     /**
      * Remove the specified resource from storage.
      */
