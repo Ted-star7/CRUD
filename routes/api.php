@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // })->middleware('auth:sanctum');
 
-route::get('/', function(){
-    return response()->json([
-        'message' => 'Welcome to my API'
-    ]);
-} );
+
+
+Route::apiResource('posts', \App\Http\Controllers\PostController::class);
